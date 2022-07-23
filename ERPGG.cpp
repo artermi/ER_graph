@@ -6,7 +6,8 @@ ERPGG::ERPGG(const int siz,const double R,const int deg, const double B){
 	r_eff = R;
 	r_n = R;
 	b = B;
-	if (b + 0.00000001 > 0 && b - 0.00000001 < 0)
+	
+	if (b + 0.00000001 > 1 && b - 0.00000001 < 1)
 		r_n /= 0.5011889938866062;
 
 	if (b + 0.00000001 > 2 && b - 0.00000001 < 2 )

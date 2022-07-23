@@ -16,8 +16,8 @@ int main(int argc, char** argv){
 	*/
 	//printf("Now doing Derermistic mode with size:%d alpha:%f\n",size,para);
 
-	double b_list[1] = {0};
-	for (int bi = 0; bi < 1; ++bi)
+	double b_list[4] = {0,0.5,1,2.0};
+	for (int bi = 0; bi < 4; ++bi)
 		for(double reff = 2; reff < 7.01; reff += 0.1 ){
 			for(int i = 0; i< 10; i++){
 				printf("round: %d\n", i);
