@@ -21,7 +21,7 @@ int main(int argc, char** argv){
 		for(double reff = 2; reff < 7.01; reff += 0.1 ){
 			for(int i = 0; i< 10; i++){
 				printf("round: %d\n", i);
-				ERPGG gameOBJ(siz, reff,para, b_list[bi]);
+				ERPGG gameOBJ(siz, reff,para, b_list[bi],i);
 				gameOBJ.game(true);
 			}
 		}

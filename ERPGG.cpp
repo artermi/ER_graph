@@ -1,11 +1,13 @@
 #include "ERPGG.h"
 using namespace std;
 
-ERPGG::ERPGG(const int siz,const double R,const int deg, const double B){
+ERPGG::ERPGG(const int siz,const double R,const int deg, const double B, const int FN){
 	g0 = 11;
 	r_eff = R;
 	r_n = R;
 	b = B;
+	file_n = FN;
+	max_group = 0;
 	
 	if (b + 0.00000001 > 1 && b - 0.00000001 < 1)
 		r_n /= 0.5011889938866062;
@@ -46,6 +48,10 @@ ERPGG::ERPGG(const int siz,const double R,const int deg, const double B){
 			}
 		}
 	}
+	for(int i = 0; i < LL; i++){
+		if( (int) Neighbour[i].size() > max_group)
+			max_group = (int) (Neighbour[i].size());
+	}
 }
 ERPGG::~ERPGG(){
 	delete Strategy;
@@ -85,24 +91,50 @@ int ERPGG::game(bool ptf){
 	FILE *file;
 	if(ptf){
 		char path[100];
-		sprintf(path,"b_%02d_r1_%03d.dat", (int)((b + 0.000001) * 10), (int)((r_eff + 0.000001) * 10));
+		sprintf(path,"b_%02d_r1_%03d_%03d.dat", (int)((b + 0.000001) * 10), (int)((r_eff + 0.000001) * 10),
+			file_n);
 		printf("Now file:%s\n",path);
 		file = fopen(path,"a+");
 	}
 
 	double rate = 0.0;
-	double iter = 10001;
+	int iter = 10001;
+	int gap = 500;
 	for(int i = 0; i < iter; i++){
 
-		if(i % 500 == 0){
+		if(i % gap == 0){
 			double total = 0;
 			for(int j = 0; j < LL; j++)
 				total += double(Strategy[j]);
 
 			rate = double (total/double(LL));
-			if(ptf && i == iter -1)
-				fprintf(file, "%06d %.3f\n",i,rate);
-			printf("%d %.3f\n",i, rate );
+
+			int WRS_size[max_group + 5];
+			int WRS_coop[max_group + 5];
+			for(int j = 0; j < max_group+5;j++){
+				WRS_size[j] = 0;
+				WRS_coop[j] = 0;
+			}
+			for(int j = 0; j < LL; j++){
+				WRS_size[Neighbour[j].size() + 1] += 1;
+				WRS_coop[Neighbour[j].size() + 1] += Strategy[j];
+			}
+
+			char all_outcome[500] = "";
+			for(int j = 1; j < max_group+1; j++){ //No need to do zero
+				char one_outcome[20] = "";
+				if(WRS_size[j] == 0)
+					continue;
+				
+				sprintf(one_outcome, "%2d:%.3f ",j, double(WRS_coop[j])/double(WRS_size[j]));
+
+				strcat(all_outcome, one_outcome);
+			}
+
+
+			if(ptf)
+				fprintf(file, "%d|%.3f|%s\n",i,rate,all_outcome);
+			printf("%d|%.3f|%s\n",i, rate, all_outcome);
 
 		}
 		if(rate - 0.000001 <= 0 || rate + 0.000001 >= 1 || i == iter -1)
