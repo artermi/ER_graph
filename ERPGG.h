@@ -5,6 +5,7 @@
 #include <time.h>
 #include <algorithm>
 #include <string>
+#include <cstring>
 #include <sys/stat.h>
 #include <sys/types.h>
 
