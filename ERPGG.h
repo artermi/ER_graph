@@ -20,6 +20,7 @@ public:
 	int file_n;
 	int LL;
 	int d;
+	int *WRS_size;
 	char dir_name[100];
 
 	int *Strategy;

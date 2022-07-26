@@ -52,9 +52,17 @@ ERPGG::ERPGG(const int siz,const double R,const int deg, const double B, const i
 		if( (int) Neighbour[i].size() > max_group)
 			max_group = (int) (Neighbour[i].size());
 	}
+	WRS_size = new int[max_group+5];
+	for(int j = 0; j < max_group+5;j++)
+		WRS_size[j] = 0;
+
+	for(int j = 0; j < LL; j++)
+		WRS_size[Neighbour[j].size() + 1] += (Neighbour[j].size()+1);
+
 }
 ERPGG::~ERPGG(){
 	delete Strategy;
+	delete WRS_size;
 }
 
 double ERPGG::unit_game(const int cent){
@@ -109,15 +117,14 @@ int ERPGG::game(bool ptf){
 
 			rate = double (total/double(LL));
 
-			int WRS_size[max_group + 5];
 			int WRS_coop[max_group + 5];
-			for(int j = 0; j < max_group+5;j++){
-				WRS_size[j] = 0;
+			for(int j = 0; j < max_group+5;j++)
 				WRS_coop[j] = 0;
-			}
+			
 			for(int j = 0; j < LL; j++){
-				WRS_size[Neighbour[j].size() + 1] += 1;
 				WRS_coop[Neighbour[j].size() + 1] += Strategy[j];
+				for(int k = 0; k < (int) Neighbour[j].size(); k++)
+					WRS_coop[Neighbour[j].size() + 1] += Strategy[Neighbour[j][k]];
 			}
 
 			char all_outcome[500] = "";

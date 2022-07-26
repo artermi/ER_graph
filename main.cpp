@@ -20,6 +20,17 @@ int main(int argc, char** argv){
 	for (int bi = 0; bi < 4; ++bi)
 		for(double reff = 2; reff < 7.01; reff += 0.1 ){
 			for(int i = 0; i< 10; i++){
+				char file_n[100];
+				sprintf(file_n,"b_%02d_r1_%03d_%03d.dat", (int)((b_list[bi] + 0.000001) * 10), (int)((reff + 0.000001) * 10),
+				i);
+				FILE *file;
+		  		file = fopen(file_n, "r");
+   				if (file) {
+      				fclose(file);
+      				printf("file:'%s' exists\n",file_n);
+      				continue;
+   				}
+
 				printf("round: %d\n", i);
 				ERPGG gameOBJ(siz, reff,para, b_list[bi],i);
 				gameOBJ.game(true);
