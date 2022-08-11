@@ -1,7 +1,7 @@
 import sys
 import numpy as np
 import os
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from collections import defaultdict
 
 def read_a_type(Dname, filename):
@@ -47,7 +47,7 @@ def read_a_type(Dname, filename):
 def main():
 	done_file = []
 	Der_name = sys.argv[1]
-	dist_dir = 'Itr_avg'
+	dist_dir = sys.argv[2]
 
 	for root,dirs,files in sorted(os.walk(Der_name,topdown = False)):
 		for name in sorted(files):
