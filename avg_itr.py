@@ -21,10 +21,14 @@ def read_a_type(Dname, filename):
 				continue
 
 			with open(os.path.join(root, name)) as f:
+				num_round = 0
 				lines = f.readlines()
 				for line in lines:
 					bk_line = line.split('|')
 					itr_num = int(bk_line[0])
+					if itr_num == 0:
+						num_round += 1
+
 					gsize = bk_line[2].split()
 					for ele in gsize:
 						gp, avg = int(ele.split(':')[0]), float(ele.split(':')[1])
@@ -33,7 +37,8 @@ def read_a_type(Dname, filename):
 							iter_dict[itr_num][gp] = avg
 						else:
 							iter_dict[itr_num][gp] += avg
-				cycle_num += len(lines) / 21
+				
+				cycle_num += num_round
 
 
 	for iters in iter_dict:
