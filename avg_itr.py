@@ -19,8 +19,9 @@ def read_a_type(Dname, filename):
 			#01234567890
 			if name[0:11] != filename[0:11]:
 				continue
-
+            
 			with open(os.path.join(root, name)) as f:
+				print(name)
 				num_round = 0
 				lines = f.readlines()
 				for line in lines:
