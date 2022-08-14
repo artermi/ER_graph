@@ -29,6 +29,7 @@ public:
 
 	ERPGG(const int siz, const double R, const int deg,const double B, const int FN);
 	~ERPGG();
+	void see_size();
 	double unit_game(const int cent);
 	double centre_game(const int cent);
 	int game(bool ptf);
