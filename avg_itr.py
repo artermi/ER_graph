@@ -61,8 +61,8 @@ def main():
 			#b_10_r1_050_000.dat
 			#0123456789012345678
 			n_end = 11 + len(name) - 19
-            if name[0:n_end] in done_file:
-            	continue
+			if name[0:n_end] in done_file:
+				continue
 			#print(name[0:11])
 			one_content = read_a_type(Der_name, name)
 			done_file.append(name[0:n_end])
