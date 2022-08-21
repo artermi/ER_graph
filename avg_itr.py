@@ -16,8 +16,9 @@ def read_a_type(Dname, filename):
 	for root,dirs,files in sorted(os.walk(Dname,topdown = False)):
 		for name in sorted(files):
 			#b_10_r1_050_000.dat
-			#01234567890
-			if name[0:11] != filename[0:11]:
+			#0123456789012345678
+            n_end = 11 + len(name) - 19
+			if name[0:n_end] != filename[0:n_end]:
 				continue
             
 			with open(os.path.join(root, name)) as f:
@@ -51,21 +52,22 @@ def read_a_type(Dname, filename):
 
 
 def main():
-	done_file = []
+    done_file = []
 	Der_name = sys.argv[1]
 	dist_dir = sys.argv[2]
 
 	for root,dirs,files in sorted(os.walk(Der_name,topdown = False)):
 		for name in sorted(files):
 			#b_10_r1_050_000.dat
-			#01234567890
-			if name[0:11] in done_file:
+			#0123456789012345678
+            n_end = 11 + len(name) - 19
+			if name[0:n_end] in done_file:
 				continue
 			#print(name[0:11])
 			one_content = read_a_type(Der_name, name)
-			done_file.append(name[0:11])
+			done_file.append(name[0:n_end])
 
-			new_file_name = dist_dir + '/' + name[0:11] + '.dat'
+			new_file_name = dist_dir + '/' + name[0:n_end] + '.dat'
 			with open(new_file_name,'w') as f:
 				for itr in one_content:
 					f.write(str(itr) + '|')
