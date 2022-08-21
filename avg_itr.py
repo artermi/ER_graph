@@ -52,7 +52,7 @@ def read_a_type(Dname, filename):
 
 
 def main():
-    done_file = []
+	done_file = []
 	Der_name = sys.argv[1]
 	dist_dir = sys.argv[2]
 
