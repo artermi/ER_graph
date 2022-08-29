@@ -10,12 +10,12 @@ PL_PGG::PL_PGG(const int siz,const double R,const int deg, const double B, const
 	max_group = 0;
 	
 	if (b + 0.00000001 > 1 && b - 0.00000001 < 1)
-		r_n /= 0.5011889938866062;
+		r_n /= 0.69975;
 
 	if (b + 0.00000001 > 2 && b - 0.00000001 < 2 )
-		r_n /= 0.31025536300404416;
+		r_n /= 0.95569;
 	if (b + 0.00000001 > 0.5 && b - 0.00000001 < 0.5)
-		r_n /= 0.682120469333653;
+		r_n /= 0.797254415;
 
 	d = deg;
 
@@ -59,8 +59,8 @@ PL_PGG::PL_PGG(const int siz,const double R,const int deg, const double B, const
 	fclose(fp);
 
 	for(int i = 0; i < LL; i++){
-		if( (int) Neighbour[i].size() > max_group)
-			max_group = (int) (Neighbour[i].size());
+		if( (int) Neighbour[i].size() + 1 > max_group)
+			max_group = (int) (Neighbour[i].size() + 1);
 	}
 
 
@@ -69,7 +69,7 @@ PL_PGG::PL_PGG(const int siz,const double R,const int deg, const double B, const
 		WRS_size[j] = 0;
 
 	for(int j = 0; j < LL; j++)
-		WRS_size[Neighbour[j].size() + 1] += (Neighbour[j].size()+1);
+		WRS_size[Neighbour[j].size() + 1] += (Neighbour[i].size() + 1);
 
 }
 
@@ -80,14 +80,30 @@ PL_PGG::~PL_PGG(){
 }
 
 void PL_PGG::see_size(){
+	/*
 	for(int i = 0; i < Neighbour[0].size(); i++)
 		printf("%d\n", Neighbour[0][i]);
+	int WRS_coop[max_group + 5];
+	for(int j = 0; j < max_group+5;j++)
+		WRS_coop[j] = 0;
+			
+	for(int j = 0; j < LL; j++){
+		WRS_coop[Neighbour[j].size() + 1] += Strategy[j];
+		for(int k = 0; k < (int) Neighbour[j].size(); k++)
+			WRS_coop[Neighbour[j].size() + 1] += Strategy[Neighbour[j][k]];
+		}
+	*/
+
+	for(int i = 0; i <= max_group; i++)
+		printf("%d %d\n", i, WRS_size[i]);
+
 
 }
 
 double PL_PGG::unit_game(const int cent){
 	double gs = (double) (Neighbour[cent].size());
 	double r = r_n * pow(( (gs-1) / (g0 -1) ), b);
+
 	if (b + 0.00000001 > 0 && b - 0.00000001 < 0)
 		r = r_n;
 
@@ -127,7 +143,7 @@ int PL_PGG::game(bool ptf){
 
 	double rate = 0.0;
 	int iter = 10001;
-	int gap = 1;
+	int gap = 500;
 	for(int i = 0; i < iter; i++){
 
 		if(i % gap == 0){
@@ -136,6 +152,8 @@ int PL_PGG::game(bool ptf){
 				total += double(Strategy[j]);
 
 			rate = double (total/double(LL));
+
+			/*
 
 			int WRS_coop[max_group + 5];
 			for(int j = 0; j < max_group+5;j++)
@@ -158,11 +176,16 @@ int PL_PGG::game(bool ptf){
 
 				strcat(all_outcome, one_outcome);
 			}
+			*/
 
 
 			if(ptf)
-				fprintf(file, "%d|%.3f|%s\n",i,rate,all_outcome);
-			printf("%d|%.3f|%s\n",i, rate, all_outcome);
+				fprintf(file, "%d %d\n", i, rate);
+				//fprintf(file, "%d|%.3f|%s\n",i,rate,all_outcome);
+			printf("%d %d\n"i, rate);
+
+			//printf("%d|%.3f|%s\n",i, rate, all_outcome);
+
 
 		}
 		if(rate - 0.000001 <= 0 || rate + 0.000001 >= 1 || i == iter -1)
