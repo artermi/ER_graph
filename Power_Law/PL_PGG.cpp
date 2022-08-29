@@ -69,7 +69,7 @@ PL_PGG::PL_PGG(const int siz,const double R,const int deg, const double B, const
 		WRS_size[j] = 0;
 
 	for(int j = 0; j < LL; j++)
-		WRS_size[Neighbour[j].size() + 1] += (Neighbour[i].size() + 1);
+		WRS_size[Neighbour[j].size() + 1] += (Neighbour[j].size() + 1);
 
 }
 
@@ -182,7 +182,7 @@ int PL_PGG::game(bool ptf){
 			if(ptf)
 				fprintf(file, "%d %d\n", i, rate);
 				//fprintf(file, "%d|%.3f|%s\n",i,rate,all_outcome);
-			printf("%d %d\n"i, rate);
+			printf("%d %d\n", i, rate);
 
 			//printf("%d|%.3f|%s\n",i, rate, all_outcome);
 

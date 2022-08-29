@@ -11,7 +11,7 @@ int main(int argc, char** argv){
 	double bi_ = 0.5;
 	if(argc > 2){
 		reff_ =     atof(argv[1]);
-		bi+ =     atof(argv[2]);
+		bi_ =     atof(argv[2]);
 	}
 	
 	//printf("Now doing Derermistic mode with size:%d alpha:%f\n",size,para);
