@@ -35,7 +35,7 @@ PL_PGG::PL_PGG(const int siz,const double R,const int deg, const double B, const
 	/* Read from the pre-built graphs
 	*/
 	char graph_name[100];
-	sprintf(graph_name,"GR/graph_%03d.dat", FN);
+	sprintf(graph_name,"../GR/graph_%03d.dat", FN);
 
 	FILE *fp = fopen(graph_name,"rt");
 	char line[2000];
@@ -180,9 +180,9 @@ int PL_PGG::game(bool ptf){
 
 
 			if(ptf)
-				fprintf(file, "%d %d\n", i, rate);
+				fprintf(file, "%05d %.3f\n", i, rate);
 				//fprintf(file, "%d|%.3f|%s\n",i,rate,all_outcome);
-			printf("%d %d\n", i, rate);
+			printf("%05d %.3f\n", i, rate);
 
 			//printf("%d|%.3f|%s\n",i, rate, all_outcome);
 
