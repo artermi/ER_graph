@@ -17,10 +17,12 @@ int main(int argc, char** argv){
 	//printf("Now doing Derermistic mode with size:%d alpha:%f\n",size,para);
 
 	double b_list[4] = {0,0.5,1,2.0};
+	
 	for (int bi = 0; bi < 4; ++bi)
 		for(double reff = 2; reff < 7.01; reff += 0.1 ){
 			for(int i = 0; i< 100; i++){
 				char file_n[100];
+				/*
 				sprintf(file_n,"b_%02d_r1_%03d.dat", (int)((b_list[bi] + 0.000001) * 10), (int)((reff + 0.000001) * 10));
 				FILE *file;
 		  		file = fopen(file_n, "r");
@@ -29,6 +31,7 @@ int main(int argc, char** argv){
       				printf("file:'%s' exists\n",file_n);
       				continue;
    				}
+   				*/
 
 				printf("round: %d\n", i);
 				PL_PGG gameOBJ(siz, reff,para, b_list[bi],i);

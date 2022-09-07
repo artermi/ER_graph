@@ -131,6 +131,7 @@ double PL_PGG::centre_game(const int cent){
 }
 
 int PL_PGG::game(bool ptf){
+	ptf = false;
 
 	FILE *file;
 	if(ptf){
@@ -140,7 +141,7 @@ int PL_PGG::game(bool ptf){
 		file = fopen(path,"a+");
 	}
 
-	double rate = 0.0;
+	double rate = 0.5;
 	int iter = 10001;
 	int gap = 500;
 	for(int i = 0; i < iter; i++){
@@ -187,11 +188,13 @@ int PL_PGG::game(bool ptf){
 
 
 		}
+
 		if(rate - 0.000001 <= 0 || rate + 0.000001 >= 1 || i == iter -1)
 			continue;
 		
 
 		for(int j = 0; j < LL; j++){
+
 			int x = rand() % LL;
 			if(Neighbour[x].size() == 0)
 				continue;
@@ -205,6 +208,7 @@ int PL_PGG::game(bool ptf){
 				Strategy[y] = Strategy[x];
 		}
 	}
+
 	if(ptf)
 		fclose(file);
 
