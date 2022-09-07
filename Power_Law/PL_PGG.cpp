@@ -135,8 +135,7 @@ int PL_PGG::game(bool ptf){
 	FILE *file;
 	if(ptf){
 		char path[100];
-		sprintf(path,"b_%02d_r1_%03d_%03d.dat", (int)((b + 0.000001) * 10), (int)((r_eff + 0.000001) * 10),
-			file_n);
+		sprintf(path,"b_%02d_r1_%03d.dat", (int)((b + 0.000001) * 10), (int)((r_eff + 0.000001) * 10));
 		printf("Now file:%s\n",path);
 		file = fopen(path,"a+");
 	}
@@ -146,7 +145,7 @@ int PL_PGG::game(bool ptf){
 	int gap = 500;
 	for(int i = 0; i < iter; i++){
 
-		if(i % gap == 0){
+		if(i == iter - 1){
 			double total = 0;
 			for(int j = 0; j < LL; j++)
 				total += double(Strategy[j]);
