@@ -114,15 +114,15 @@ int ERPGG::game(bool ptf){
 	FILE *file;
 	if(ptf){
 		char path[100];
-		sprintf(path,"b_%02d_r1_%03d_%03d.dat", (int)((b + 0.000001) * 10), (int)((r_eff + 0.000001) * 10),
+		sprintf(path,"b_%02d_r1_%04d_%03d.dat", (int)((b + 0.000001) * 10), (int)((r_eff + 0.000001) * 100),
 			file_n);
 		printf("Now file:%s\n",path);
 		file = fopen(path,"a+");
 	}
 
 	double rate = 0.0;
-	int iter = 10001;
-	int gap = 1;
+	int iter = 20001;
+	int gap = 2;
 	for(int i = 0; i < iter; i++){
 
 		if(i % gap == 0){
