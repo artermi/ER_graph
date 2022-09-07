@@ -131,7 +131,6 @@ double PL_PGG::centre_game(const int cent){
 }
 
 int PL_PGG::game(bool ptf){
-	ptf = false;
 
 	FILE *file;
 	if(ptf){
