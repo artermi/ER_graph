@@ -21,7 +21,7 @@ int main(int argc, char** argv){
 	for (int bi = 0; bi < 4; ++bi)
 		for(double reff = 2; reff < 7.01; reff += 0.1 ){
 			bool first_time = true;
-			for(int i = 0; i< 100; i++){
+			for(int i = 0; i< 500; i++){
 				char file_n[100];
 
 				if(first_time){

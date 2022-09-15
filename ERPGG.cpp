@@ -121,8 +121,8 @@ int ERPGG::game(bool ptf){
 	}
 
 	double rate = 0.0;
-	int iter = 40001;
-	int gap = 4;
+	int iter = 100001;
+	int gap = 10;
 	for(int i = 0; i < iter; i++){
 
 		if(i % gap == 0){
