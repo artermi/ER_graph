@@ -26,12 +26,12 @@ def read_a_type(Dname, filename):
 				num_round = 0
 				lines = f.readlines()
 				for line in lines:
+					if bk_line.strip() = '':
+						continue
 					bk_line = line.split('|')
 					itr_num = int(bk_line[0])
 					if itr_num == 0:
 						num_round += 1
-
-					print(bk_line[2])
 
 					gsize = bk_line[2].split()
 					for ele in gsize:
