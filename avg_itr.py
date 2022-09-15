@@ -26,7 +26,7 @@ def read_a_type(Dname, filename):
 				num_round = 0
 				lines = f.readlines()
 				for line in lines:
-					if bk_line.strip() == '':
+					if line.strip() == '':
 						continue
 					bk_line = line.split('|')
 					itr_num = int(bk_line[0])
