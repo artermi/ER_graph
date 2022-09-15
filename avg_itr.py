@@ -31,6 +31,8 @@ def read_a_type(Dname, filename):
 					if itr_num == 0:
 						num_round += 1
 
+					print(bk_line[2])
+
 					gsize = bk_line[2].split()
 					for ele in gsize:
 						gp, avg = int(ele.split(':')[0]), float(ele.split(':')[1])
