@@ -1,4 +1,4 @@
-from igraph import Graph
+from igraph import Graph, mean
 import numpy as np
 
 import matplotlib.pyplot as plt
@@ -28,15 +28,16 @@ def main():
 	#print( sum(g.degree())/len(g.degree() ) )
 
 	for i in range(1000):
-		m = list(np.random.poisson(deg,N))
+		#m = list(np.random.poisson(deg,N))
+		#g = Graph.Static_Power_Law(N,deg * N , 3)
 		g = Graph.Barabasi(N,deg)
 
 		new_file_name = 'graph_' + str(i).zfill(3) + '.dat'
 		Graph_file_gen(g,new_file_name)
 
-	'''
-	deg_seq = sorted( g.degree(),reverse = True)
+		deg_seq = sorted( g.degree(),reverse = True)
 
+	'''
 	dmax = max(deg_seq)
 
 	ax = plt.subplot(111)
@@ -47,7 +48,7 @@ def main():
 	ax.set_xscale('log')
 	plt.show()
 	'''
-
+			
 
 if __name__ == '__main__':
 	main()

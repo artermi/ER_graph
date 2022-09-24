@@ -14,6 +14,11 @@ PL_PGG::PL_PGG(const int siz,const double R,const int deg, const double B, const
 
 	if (b + 0.00000001 > 2 && b - 0.00000001 < 2 )
 		r_n /= 0.95569;
+	if (b + 0.00000001 > 0.25 && b -0.00000001 < 0.25)
+		r_n /= 0.884718
+	if (b + 0.00000001 > 0.75 && b - 0.00000001 < 0.75)
+		r_n /= 0.735610
+	
 	if (b + 0.00000001 > 0.5 && b - 0.00000001 < 0.5)
 		r_n /= 0.797254415;
 
@@ -101,13 +106,13 @@ void PL_PGG::see_size(){
 }
 
 double PL_PGG::unit_game(const int cent){
-	double gs = (double) (Neighbour[cent].size());
-	double r = r_n * pow(( (gs-1) / (g0 -1) ), b);
+	int gs = Neighbour[cent].size();
+	double r = r_n;
 
-	if (b + 0.00000001 > 0 && b - 0.00000001 < 0)
-		r = r_n;
+	if (b - 0.001 > 0)
+		r = r_n * pow(( double(gs-1) / (g0 -1) ), b);
 
-	double contrib = (double) Strategy[cent];
+	int contrib = Strategy[cent];
 
 	for(int i = 0; i < gs; i++){
 		int person = Neighbour[cent][i];
@@ -115,7 +120,7 @@ double PL_PGG::unit_game(const int cent){
 			contrib += 1;
 	}
 
-	return (contrib * r) / (gs+1);
+	return ( double(contrib) * r) / double(gs+1);
 }
 
 
@@ -125,7 +130,8 @@ double PL_PGG::centre_game(const int cent){
 		profit += unit_game(Neighbour[cent][i]);
 	}
 
-	profit -= double (Neighbour[cent].size()) * double(Strategy[cent]);
+	if( Strategy[cent] == 1)
+		profit -= double(Neighbour[cent].size() + 1);
 
 	return profit;
 }

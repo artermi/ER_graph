@@ -18,10 +18,10 @@ int main(int argc, char** argv){
 
 	double b_list[4] = {0,0.5,1,2.0};
 
-	for (int bi = 0; bi < 4; ++bi)
-		for(double reff = 2; reff < 7.01; reff += 0.1 ){
+	for (int bi = 0; bi < 1; ++bi)
+		for(double reff = 2; reff < 12.01; reff += 0.1 ){
 			bool first_time = true;
-			for(int i = 0; i< 500; i++){
+			for(int i = 0; i< 10; i++){
 				char file_n[100];
 
 				if(first_time){

@@ -104,7 +104,7 @@ double ERPGG::centre_game(const int cent){
 		profit += unit_game(Neighbour[cent][i]);
 	}
 
-	profit -= double (Neighbour[cent].size()) * double(Strategy[cent]);
+	profit -= double (Neighbour[cent].size() + 1) * double(Strategy[cent]);
 
 	return profit;
 }
