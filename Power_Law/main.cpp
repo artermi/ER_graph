@@ -1,4 +1,5 @@
 #include "PL_PGG.h"
+#include <unistd.h>
 using namespace std;
 
 
@@ -31,6 +32,7 @@ int main(int argc, char** argv){
 	   				if (file) {
 	      				fclose(file);
 	      				printf("file:'%s' exists\n",file_n);
+	      				usleep(100000);
 	      				break;
 	   				}
    				}

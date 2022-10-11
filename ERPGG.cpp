@@ -2,7 +2,7 @@
 using namespace std;
 
 ERPGG::ERPGG(const int siz,const double R,const int deg, const double B, const int FN){
-	g0 = 11;
+	g0 = 10;
 	r_eff = R;
 	r_n = R;
 	b = B;
@@ -10,12 +10,12 @@ ERPGG::ERPGG(const int siz,const double R,const int deg, const double B, const i
 	max_group = 0;
 	
 	if (b + 0.00000001 > 1 && b - 0.00000001 < 1)
-		r_n /= 0.5011889938866062;
+		r_n /= 0.5520180213778294;
 
 	if (b + 0.00000001 > 2 && b - 0.00000001 < 2 )
-		r_n /= 0.31025536300404416;
+		r_n /= 0.3763597177693432;
 	if (b + 0.00000001 > 0.5 && b - 0.00000001 < 0.5)
-		r_n /= 0.682120469333653;
+		r_n /= 0.7087842326871754;
 
 	d = deg;
 
@@ -82,7 +82,9 @@ void ERPGG::see_size(){
 
 double ERPGG::unit_game(const int cent){
 	double gs = (double) (Neighbour[cent].size());
-	double r = r_n * pow(( (gs-1) / (g0 -1) ), b);
+	double rate = (gs > 11) ? .1: 0.9 * pow( 1 - (gs - 1)/g0, b) + .1;
+	double r = r_n * rate;
+
 	if (b + 0.00000001 > 0 && b - 0.00000001 < 0)
 		r = r_n;
 
@@ -121,8 +123,8 @@ int ERPGG::game(bool ptf){
 	}
 
 	double rate = 0.0;
-	int iter = 100001;
-	int gap = 10;
+	int iter = 10001;
+	int gap = 500;
 	for(int i = 0; i < iter; i++){
 
 		if(i % gap == 0){
@@ -132,6 +134,7 @@ int ERPGG::game(bool ptf){
 
 			rate = double (total/double(LL));
 
+			/*
 			int WRS_coop[max_group + 5];
 			for(int j = 0; j < max_group+5;j++)
 				WRS_coop[j] = 0;
@@ -152,12 +155,18 @@ int ERPGG::game(bool ptf){
 				sprintf(one_outcome, "%2d:%.3f ",j, double(WRS_coop[j])/double(WRS_size[j]));
 
 				strcat(all_outcome, one_outcome);
+				
 			}
-
 
 			if(ptf)
 				fprintf(file, "%d|%.3f|%s\n",i,rate,all_outcome);
 			printf("%d|%.3f|%s\n",i, rate, all_outcome);
+
+			*/
+			if(ptf)
+				fprintf(file, "%05d %.3f\n", i, rate);
+				//fprintf(file, "%d|%.3f|%s\n",i,rate,all_outcome);
+			printf("%05d %.3f\n", i, rate);
 
 		}
 		if(rate - 0.000001 <= 0 || rate + 0.000001 >= 1 || i == iter -1)
